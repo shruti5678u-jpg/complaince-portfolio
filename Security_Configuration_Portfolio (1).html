@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Configuration — UX Case Study</title>
+<style>
+:root {
+  --bg: #F6F6F4;
+  --surface: #FFFFFF;
+  --border: #E0E0DA;
+  --navy: #0E1B2E;
+  --navy-mid: #1D3557;
+  --blue: #1A6FE8;
+  --blue-light: #EBF2FE;
+  --blue-mid: #D0E4FC;
+  --green: #0B6E4F;
+  --green-light: #E0F4EC;
+  --amber: #8A4F0D;
+  --amber-light: #FDF0E0;
+  --red: #9B1C1C;
+  --red-light: #FDEAEA;
+  --text: #1A1A1A;
+  --text-mid: #444;
+  --text-light: #777;
+  --text-xlight: #AAA;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 36px 120px; }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 88px 0 64px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 80px;
+}
+
+.hero-kicker {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px;
+}
+.kicker {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 5px 12px; border-radius: 100px;
+}
+.kicker-blue { background: var(--blue-light); color: var(--blue); }
+.kicker-gray { background: #EBEBЕ8; color: #555; background: #EEEEED; }
+
+.hero h1 {
+  font-size: 52px; font-weight: 900; letter-spacing: -0.03em;
+  line-height: 1.06; color: var(--navy); margin-bottom: 6px;
+}
+.hero h1 span { color: var(--blue); }
+.hero-tagline {
+  font-size: 20px; color: var(--text-mid); max-width: 680px;
+  line-height: 1.6; margin: 20px 0 44px; font-weight: 400;
+}
+
+.hero-insight {
+  background: var(--navy);
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin-bottom: 44px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.insight-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--blue); writing-mode: vertical-lr;
+  transform: rotate(180deg); white-space: nowrap;
+}
+.insight-text {
+  font-size: 17px; color: #E8EEF8; line-height: 1.65; font-weight: 400;
+}
+.insight-text strong { color: #fff; font-weight: 700; }
+
+.meta-bar {
+  display: flex; flex-wrap: wrap; gap: 36px;
+  padding-top: 36px; border-top: 1px solid var(--border);
+}
+.meta-item { display: flex; flex-direction: column; gap: 5px; }
+.meta-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--text-xlight); font-weight: 700;
+}
+.meta-val { font-size: 13px; color: var(--navy); font-weight: 600; }
+
+/* ─── SECTION ─── */
+.sec { margin-bottom: 88px; }
+.sec-eye {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.11em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 10px;
+}
+.sec h2 {
+  font-size: 34px; font-weight: 900; letter-spacing: -0.02em;
+  color: var(--navy); margin-bottom: 12px; line-height: 1.12;
+}
+.sec-sub {
+  font-size: 15px; color: var(--text-mid); line-height: 1.75;
+  max-width: 720px; margin-bottom: 36px;
+}
+p.body-t {
+  font-size: 15px; color: var(--text-mid); line-height: 1.75;
+  margin-bottom: 16px; max-width: 720px;
+}
+
+/* ─── DIVIDER ─── */
+.hr { height: 1px; background: var(--border); margin: 72px 0; }
+
+/* ─── CALLOUT ─── */
+.callout {
+  border-left: 3px solid var(--blue);
+  padding: 18px 24px; background: var(--blue-light);
+  border-radius: 0 12px 12px 0; margin: 28px 0;
+}
+.callout p {
+  font-size: 15px; color: var(--navy-mid); line-height: 1.72;
+  margin: 0; font-style: italic;
+}
+.callout p strong { color: var(--navy); font-style: normal; }
+
+/* ─── PROBLEM STATEMENT ─── */
+.problem-hero {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; margin-bottom: 36px;
+}
+.problem-hero-header {
+  background: var(--navy); padding: 20px 28px;
+  display: flex; align-items: center; gap: 14px;
+}
+.problem-hero-header h3 {
+  font-size: 13px; font-weight: 700; color: #fff;
+  text-transform: uppercase; letter-spacing: 0.07em;
+}
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #4ADE80; flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.25);
+}
+.problem-rows { display: flex; flex-direction: column; }
+.problem-row {
+  display: grid; grid-template-columns: 40px 1fr 1fr;
+  border-bottom: 1px solid #F0F0EC; align-items: stretch;
+}
+.problem-row:last-child { border-bottom: none; }
+.pr-num {
+  background: var(--blue-light); display: flex; align-items: center;
+  justify-content: center; font-size: 12px; font-weight: 800;
+  color: var(--blue); border-right: 1px solid var(--border);
+}
+.pr-gap {
+  padding: 14px 18px; font-size: 13px; font-weight: 700;
+  color: var(--navy); line-height: 1.5; border-right: 1px solid var(--border);
+}
+.pr-gap .pr-solved {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--blue); display: block; margin-top: 5px;
+}
+.pr-impact {
+  padding: 14px 18px; font-size: 13px; color: var(--text-mid); line-height: 1.55;
+}
+
+/* ─── PERSONAS ─── */
+.persona-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 28px;
+}
+.persona-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+}
+.persona-top {
+  padding: 20px 22px 16px; border-bottom: 1px solid var(--border);
+}
+.persona-av {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; margin-bottom: 14px;
+}
+.av-blue { background: var(--blue-light); color: var(--blue); }
+.av-teal { background: #DFF5EE; color: #0C6B4E; }
+.av-purple { background: #EEEDFE; color: #4E47B5; }
+.persona-card h4 { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 2px; }
+.persona-card .p-role { font-size: 11px; color: var(--text-xlight); margin-bottom: 10px; font-weight: 500; }
+.persona-card .p-goal { font-size: 12px; color: var(--text-mid); line-height: 1.6; }
+.persona-bottom { padding: 14px 22px; }
+.persona-bottom .pb-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--text-xlight); margin-bottom: 10px; display: block;
+}
+.feat-tags { display: flex; flex-direction: column; gap: 5px; }
+.feat-tag {
+  font-size: 11px; font-weight: 600; color: var(--blue);
+  background: var(--blue-light); padding: 4px 9px; border-radius: 5px;
+  display: inline-block; width: fit-content;
+}
+
+/* ─── USER FLOW ─── */
+.flow-wrap {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px; margin-bottom: 28px; overflow-x: auto;
+}
+.flow-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--text-xlight); margin-bottom: 24px;
+}
+.flow-row { display: flex; align-items: flex-start; gap: 0; min-width: 700px; }
+.flow-node {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  flex: 1;
+}
+.fn-box {
+  background: var(--blue-light); border: 1.5px solid var(--blue-mid);
+  border-radius: 10px; padding: 10px 12px; text-align: center;
+  width: 100%; max-width: 120px;
+}
+.fn-box.fn-action { background: var(--navy); border-color: var(--navy); }
+.fn-box.fn-decision { background: var(--amber-light); border-color: #F0CFA0; border-radius: 6px; }
+.fn-box.fn-end { background: var(--green-light); border-color: #A8DCC5; }
+.fn-label {
+  font-size: 11px; font-weight: 700; color: var(--navy); line-height: 1.4;
+}
+.fn-box.fn-action .fn-label { color: #fff; }
+.fn-sub { font-size: 10px; color: var(--text-xlight); text-align: center; line-height: 1.4; }
+.flow-arrow {
+  display: flex; align-items: center; padding-top: 18px;
+  color: var(--border); font-size: 18px; flex-shrink: 0;
+  padding-left: 4px; padding-right: 4px;
+}
+.flow-persona-row {
+  display: flex; gap: 0; min-width: 700px; margin-top: 8px;
+}
+.fp-item { flex: 1; display: flex; justify-content: center; }
+.fp-tag {
+  font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px;
+}
+.fp-sc { background: var(--blue-light); color: var(--blue); }
+.fp-it { background: #DFF5EE; color: #0C6B4E; }
+.fp-mo { background: #EEEDFE; color: #4E47B5; }
+.fp-arrow { flex: 0 0 32px; }
+
+/* ─── MOSCOW ─── */
+.moscow-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px;
+}
+.moscow-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+.moscow-header {
+  padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.moscow-badge {
+  font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.mb-must { background: var(--navy); color: #fff; }
+.mb-should { background: var(--blue-light); color: var(--blue); }
+.mb-could { background: #F0F0EC; color: #555; }
+.mb-wont { background: #F5F5F5; color: #AAA; }
+.moscow-header span {
+  font-size: 12px; font-weight: 600; color: var(--text-mid);
+}
+.moscow-items { padding: 14px 18px; display: flex; flex-direction: column; gap: 8px; }
+.moscow-item { display: flex; gap: 10px; align-items: flex-start; }
+.mi-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
+}
+.dot-must { background: var(--navy); }
+.dot-should { background: var(--blue); }
+.dot-could { background: #999; }
+.dot-wont { background: #CCC; }
+.mi-text { font-size: 12px; color: var(--text-mid); line-height: 1.55; }
+.mi-text strong { color: var(--navy); font-weight: 700; }
+
+/* ─── PRD EVOLUTION TRACK ─── */
+.prd-track {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; margin-bottom: 28px;
+}
+.prd-row {
+  display: grid; grid-template-columns: 70px 90px 1fr;
+  align-items: stretch; border-bottom: 1px solid #F0F0EB;
+}
+.prd-row:last-child { border-bottom: none; }
+.prd-row.prd-highlight { background: var(--blue-light); }
+.prd-v {
+  padding: 16px; background: var(--navy); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: #fff; border-right: 1px solid rgba(255,255,255,0.1);
+}
+.prd-row.prd-highlight .prd-v { background: var(--blue); }
+.prd-d {
+  padding: 16px 12px; display: flex; align-items: center;
+  font-size: 11px; color: var(--text-xlight); border-right: 1px solid var(--border);
+}
+.prd-c { padding: 16px 18px; font-size: 13px; color: var(--text-mid); line-height: 1.55; display: flex; align-items: center; }
+.prd-c strong { color: var(--navy); font-weight: 700; }
+
+/* ─── ITERATION RAIL ─── */
+.iter-rail { display: flex; flex-direction: column; gap: 0; position: relative; margin-bottom: 36px; }
+.iter-rail::before {
+  content: ''; position: absolute; left: 28px; top: 40px; bottom: 40px;
+  width: 2px; background: var(--border); z-index: 0;
+}
+.iter-block {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; margin-bottom: 20px; overflow: hidden; position: relative; z-index: 1;
+}
+.iter-block.iter-final { border-color: var(--blue); border-width: 2px; }
+.iter-top {
+  display: grid; grid-template-columns: 56px 1fr auto;
+  align-items: center; gap: 0; padding: 0;
+  border-bottom: 1px solid var(--border);
+}
+.iter-block.iter-final .iter-top { border-color: var(--blue-mid); }
+.iter-badge {
+  width: 56px; display: flex; align-items: center; justify-content: center;
+  padding: 20px 0;
+}
+.ib-circle {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 900;
+}
+.ibc-gray { background: #EEEEED; color: #888; }
+.ibc-amber { background: var(--amber-light); color: var(--amber); }
+.ibc-blue { background: var(--blue); color: #fff; }
+.iter-info { padding: 18px 20px; }
+.iter-info h4 { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 3px; }
+.iter-info span { font-size: 12px; color: var(--text-xlight); }
+.iter-verdict-wrap { padding: 18px 20px; }
+.iter-verdict {
+  font-size: 11px; font-weight: 700; padding: 5px 11px;
+  border-radius: 100px; white-space: nowrap;
+}
+.iv-dropped { background: var(--red-light); color: var(--red); }
+.iv-partial { background: var(--amber-light); color: var(--amber); }
+.iv-approved { background: var(--green-light); color: var(--green); }
+
+.iter-body {
+  display: grid; grid-template-columns: 280px 1fr;
+  gap: 0; align-items: stretch;
+}
+.iter-screen {
+  border-right: 1px solid var(--border); padding: 24px;
+  background: var(--bg); display: flex; flex-direction: column; gap: 10px;
+}
+.iter-block.iter-final .iter-screen { border-color: var(--blue-mid); }
+.screen-ph {
+  border: 1.5px dashed #B8CCDF; border-radius: 10px;
+  padding: 32px 16px; text-align: center; background: var(--surface);
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+}
+.sph-name { font-size: 12px; font-weight: 700; color: var(--blue); }
+.sph-desc { font-size: 11px; color: var(--text-xlight); line-height: 1.5; }
+.iter-analysis { padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.ia-row { display: flex; gap: 10px; align-items: flex-start; }
+.ia-icon { font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+.ia-text { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+.ia-text strong { color: var(--navy); font-weight: 700; }
+
+/* ─── DECISION CARDS ─── */
+.d-stack { display: flex; flex-direction: column; gap: 20px; margin-bottom: 36px; }
+.d-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  display: grid; grid-template-columns: 8px 1fr;
+}
+.d-accent { background: var(--blue); }
+.d-body { padding: 24px 26px; }
+.d-eye {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--blue); display: block; margin-bottom: 7px;
+}
+.d-body h4 { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
+.d-body p { font-size: 13px; color: var(--text-mid); line-height: 1.68; margin: 0; }
+.d-result {
+  margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--green);
+  background: var(--green-light); padding: 7px 12px; border-radius: 6px;
+  display: inline-block;
+}
+
+/* ─── CHART RATIONALE ─── */
+.chart-table {
+  width: 100%; border-collapse: collapse; background: var(--surface);
+  border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.chart-table th {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-xlight); padding: 12px 18px;
+  text-align: left; background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.chart-table td {
+  font-size: 13px; color: var(--text-mid); padding: 14px 18px;
+  border-bottom: 1px solid #F0F0EB; vertical-align: top; line-height: 1.6;
+}
+.chart-table tr:last-child td { border-bottom: none; }
+.chart-table td:first-child { font-weight: 700; color: var(--navy); width: 22%; }
+.who-tag {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+  display: inline-block; margin: 2px 2px 0 0;
+}
+.wt-b { background: var(--blue-light); color: var(--blue); }
+.wt-t { background: #DFF5EE; color: #0C6B4E; }
+.wt-p { background: #EEEDFE; color: #4E47B5; }
+
+/* ─── SCREENS ─── */
+.sc-stack { display: flex; flex-direction: column; gap: 44px; margin-bottom: 36px; }
+.sc-unit {}
+.sc-eye {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--blue); margin-bottom: 8px; display: block;
+}
+.sc-placeholder {
+  background: var(--surface); border: 1.5px dashed #BDD0E8;
+  border-radius: 14px; padding: 52px 24px; text-align: center; margin-bottom: 12px;
+}
+.sc-placeholder .sp-name { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
+.sc-placeholder .sp-desc { font-size: 12px; color: #AAA; line-height: 1.6; max-width: 560px; margin: 0 auto; }
+.sc-annotation { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+.sc-annotation strong { color: var(--navy); }
+
+/* ─── ROLE SPLIT ─── */
+.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+.role-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 22px 24px;
+}
+.role-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; display: block; margin-bottom: 16px;
+}
+.rl-blue { color: var(--blue); }
+.rl-gray { color: var(--text-xlight); }
+.role-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.role-card ul li {
+  font-size: 13px; color: var(--text-mid); line-height: 1.55;
+  padding-left: 20px; position: relative;
+}
+.role-card.owned li::before {
+  content: "→"; position: absolute; left: 0;
+  color: var(--blue); font-weight: 700; font-size: 12px; top: 1px;
+}
+.role-card.given li::before {
+  content: "–"; position: absolute; left: 0;
+  color: #CCC; font-size: 14px; top: 0;
+}
+
+/* ─── OUTCOMES ─── */
+.outcome-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
+.outcome-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px;
+}
+.oc-num {
+  font-size: 38px; font-weight: 900; color: var(--blue);
+  line-height: 1; letter-spacing: -0.025em; margin-bottom: 7px;
+}
+.oc-desc { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+/* ─── REFLECTIONS ─── */
+.refl-stack { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.refl-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 22px;
+  display: grid; grid-template-columns: 108px 1fr; gap: 18px; align-items: start;
+}
+.rt { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 5px 9px; border-radius: 5px; display: inline-block; margin-top: 1px; }
+.rt-g { background: var(--green-light); color: var(--green); }
+.rt-a { background: var(--amber-light); color: var(--amber); }
+.rt-b { background: var(--blue-light); color: var(--blue); }
+.refl-item p { font-size: 13px; color: var(--text-mid); line-height: 1.65; margin: 0; }
+
+/* ─── FOOTER ─── */
+.footer {
+  font-size: 12px; color: var(--text-xlight);
+  padding-top: 28px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 700px) {
+  .wrap { padding: 0 20px 80px; }
+  .hero h1 { font-size: 34px; }
+  .persona-grid, .moscow-grid, .role-grid, .outcome-row { grid-template-columns: 1fr; }
+  .iter-body { grid-template-columns: 1fr; }
+  .iter-screen { border-right: none; border-bottom: 1px solid var(--border); }
+  .prd-row { grid-template-columns: 60px 1fr; }
+  .prd-d { display: none; }
+  .problem-row { grid-template-columns: 36px 1fr; }
+  .pr-impact { display: none; }
+  .flow-wrap { overflow-x: scroll; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-kicker">
+    <span class="kicker kicker-blue">Enterprise SaaS · HCL Software</span>
+    <span class="kicker kicker-gray">BigFix WebUI · Resolve</span>
+    <span class="kicker kicker-gray">Sole UX Designer · Stage 1 of 6</span>
+  </div>
+
+  <h1>Security <span>Configuration</span></h1>
+  <p class="hero-tagline">Designing BigFix's first-ever live compliance dashboard — from the ground up, through three design iterations, shaped by real platform constraints.</p>
+
+  <div class="hero-insight">
+    <div class="insight-label">The Real Story</div>
+    <div class="insight-text">
+      Before this product existed, <strong>BigFix had no live compliance view.</strong> A Security Admin who wanted to know their compliance posture had to navigate to each device, each device group, and each check individually — with no aggregated view, no filtering, no way to act without switching tools. Security Configuration changes that. <strong>Stage 1 is the first real-time compliance dashboard in BigFix's history.</strong>
+    </div>
+  </div>
+
+  <div class="meta-bar">
+    <div class="meta-item"><span class="meta-label">My Role</span><span class="meta-val">Sole UX Designer</span></div>
+    <div class="meta-item"><span class="meta-label">Collaborators</span><span class="meta-val">2 PMs · Project Director · Sr. Architects · Engineers</span></div>
+    <div class="meta-item"><span class="meta-label">Tools</span><span class="meta-val">Figma · HCL Design System · WCAG 2.1 AA</span></div>
+    <div class="meta-item"><span class="meta-label">Platform</span><span class="meta-val">Live enterprise SaaS · Up to 300,000 endpoints</span></div>
+    <div class="meta-item"><span class="meta-label">Status</span><span class="meta-val">Wireframes approved · UI build in progress</span></div>
+  </div>
+</div>
+
+<!-- ═══ THE PROBLEM ═══ -->
+<div class="sec">
+  <div class="sec-eye">The Problem</div>
+  <h2>Security teams were flying blind.</h2>
+  <p class="sec-sub">BigFix had a compliance tool — Web Reports. But it wasn't built for how modern compliance teams work. There was no single place to see posture. No filtering. No path from identifying a failing check to fixing it without switching systems entirely.</p>
+
+  <div class="problem-hero">
+    <div class="problem-hero-header">
+      <div class="live-dot"></div>
+      <h3>What didn't exist — and what Security Configuration solves</h3>
+    </div>
+    <div class="problem-rows">
+      <div class="problem-row">
+        <div class="pr-num">1</div>
+        <div class="pr-gap">No live compliance overview
+          <span class="pr-solved">→ Real-time landing page with KPI cards</span>
+        </div>
+        <div class="pr-impact">Admins had to open each device, device group, and check individually. No aggregated environment-wide view existed anywhere in the platform.</div>
+      </div>
+      <div class="problem-row">
+        <div class="pr-num">2</div>
+        <div class="pr-gap">No filtering capability
+          <span class="pr-solved">→ Global filter: 4 dimensions, multi-block OR logic</span>
+        </div>
+        <div class="pr-impact">Admins managing specific regions or device groups had to cross-reference separate reports. There was no way to scope the view.</div>
+      </div>
+      <div class="problem-row">
+        <div class="pr-num">3</div>
+        <div class="pr-gap">No saved or default views
+          <span class="pr-solved">→ Saved views with default auto-load</span>
+        </div>
+        <div class="pr-impact">Every session started from scratch. Manual filter reapplication before any actual work could begin — every time.</div>
+      </div>
+      <div class="problem-row">
+        <div class="pr-num">4</div>
+        <div class="pr-gap">No path from failure to action
+          <span class="pr-solved">→ Deploy directly from Security Checks grid</span>
+        </div>
+        <div class="pr-impact">Admins had to leave the tool and switch to a separate system to act on compliance failures. Broken workflow, every time.</div>
+      </div>
+      <div class="problem-row">
+        <div class="pr-num">5</div>
+        <div class="pr-gap">No per-checklist compliance detail
+          <span class="pr-solved">→ Single Checklist View: 5 charts + checks grid</span>
+        </div>
+        <div class="pr-impact">Web Reports showed surface-level data. No OS segmentation, no device-level breakdown, no check-level investigation.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PERSONAS ═══ -->
+<div class="sec">
+  <div class="sec-eye">Who We Were Designing For</div>
+  <h2>Three personas. Every decision validated against all three.</h2>
+  <p class="sec-sub">I used these personas as a validation lens throughout the design process — not just as a reference document. For every layout decision, I asked: which persona does this serve, at what moment in their workflow, and does it work for all three without one compromising another?</p>
+
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-top">
+        <div class="persona-av av-blue">SC</div>
+        <h4>Security / Compliance Admin</h4>
+        <p class="p-role">Primary user · Defines and enforces policies</p>
+        <p class="p-goal">Needs environment-wide posture at a glance. Applies saved filter scopes. Drills into checklists. Reviews charts across 5 dimensions. Initiates check enforcement when needed.</p>
+      </div>
+      <div class="persona-bottom">
+        <span class="pb-label">Features they drive</span>
+        <div class="feat-tags">
+          <span class="feat-tag">Landing page + global filter</span>
+          <span class="feat-tag">All 5 charts</span>
+          <span class="feat-tag">Saved views + default view</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="persona-card">
+      <div class="persona-top">
+        <div class="persona-av av-teal">IT</div>
+        <h4>IT Operations Admin</h4>
+        <p class="p-role">Manages device health · Executes enforcement</p>
+        <p class="p-goal">Gets to the Security Checks grid fast. Filters to non-compliant checks. Selects rows. Deploys. Less interested in charts — focused on action, not analysis.</p>
+      </div>
+      <div class="persona-bottom">
+        <span class="pb-label">Features they drive</span>
+        <div class="feat-tags">
+          <span class="feat-tag">Security Checks grid</span>
+          <span class="feat-tag">Grid filter by status</span>
+          <span class="feat-tag">Row selection + Deploy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="persona-card">
+      <div class="persona-top">
+        <div class="persona-av av-purple">MO</div>
+        <h4>Master Operator</h4>
+        <p class="p-role">Full platform admin · Sets org-wide defaults</p>
+        <p class="p-goal">Monitors environment-wide counts from KPI cards. Creates saved views for different teams. Sets the default view so the whole organisation lands in the right scope on arrival.</p>
+      </div>
+      <div class="persona-bottom">
+        <span class="pb-label">Features they drive</span>
+        <div class="feat-tags">
+          <span class="feat-tag">4 KPI cards</span>
+          <span class="feat-tag">Saved views management</span>
+          <span class="feat-tag">Default view auto-load</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>Two of the most structural layout decisions came directly from persona analysis. The landing page leads with <strong>KPI cards before the checklist grid</strong> — because the Master Operator needs environment-wide counts before making any selection. The Security Checks grid has its <strong>own independent filter</strong> — because the IT Ops Admin works at grid level, not page level. These weren't aesthetic choices. They were persona-driven.</p>
+  </div>
+</div>
+
+<!-- ═══ USER FLOW ═══ -->
+<div class="sec">
+  <div class="sec-eye">User Flow</div>
+  <h2>The primary compliance workflow — end to end.</h2>
+  <p class="sec-sub">The core Security Admin journey: arrive with environment context → apply scope → select a checklist → investigate posture → enforce failing checks. Every page and interaction exists to move this flow forward without friction.</p>
+
+  <div class="flow-wrap">
+    <div class="flow-title">PRIMARY FLOW — SECURITY / COMPLIANCE ADMIN</div>
+    <div class="flow-row">
+      <div class="flow-node">
+        <div class="fn-box">
+          <div class="fn-label">Land on Security Configuration</div>
+        </div>
+        <div class="fn-sub">Default view auto-loads if set</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="fn-box">
+          <div class="fn-label">Apply global filter (or use saved view)</div>
+        </div>
+        <div class="fn-sub">Scope by checklist, device group, device, or check</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="fn-box">
+          <div class="fn-label">Read KPI cards</div>
+        </div>
+        <div class="fn-sub">Checks · Devices · Device Groups</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="fn-box">
+          <div class="fn-label">Click checklist row</div>
+        </div>
+        <div class="fn-sub">Navigates to Single Checklist View</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="fn-box">
+          <div class="fn-label">Read 5 charts</div>
+        </div>
+        <div class="fn-sub">Compliance posture across 5 dimensions</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="fn-box fn-action">
+          <div class="fn-label">Select checks + Deploy</div>
+        </div>
+        <div class="fn-sub">Opens Core BFUI Deploy flow</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="fn-box fn-end">
+          <div class="fn-label">Check enforced</div>
+        </div>
+        <div class="fn-sub">Compliance posture updates live</div>
+      </div>
+    </div>
+    <div class="flow-persona-row">
+      <div class="fp-item"><span class="fp-tag fp-sc fp-mo">SC · MO</span></div>
+      <div class="fp-arrow"></div>
+      <div class="fp-item"><span class="fp-tag fp-sc">SC</span></div>
+      <div class="fp-arrow"></div>
+      <div class="fp-item"><span class="fp-tag fp-sc fp-mo">SC · MO</span></div>
+      <div class="fp-arrow"></div>
+      <div class="fp-item"><span class="fp-tag fp-sc">SC</span></div>
+      <div class="fp-arrow"></div>
+      <div class="fp-item"><span class="fp-tag fp-sc">SC</span></div>
+      <div class="fp-arrow"></div>
+      <div class="fp-item"><span class="fp-tag fp-it">IT Ops</span></div>
+      <div class="fp-arrow"></div>
+      <div class="fp-item"><span class="fp-tag fp-sc fp-it">SC · IT</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MOSCOW ═══ -->
+<div class="sec">
+  <div class="sec-eye">Scope Definition — MoSCoW</div>
+  <h2>What Stage 1 is — and what it deliberately isn't.</h2>
+  <p class="sec-sub">Stage 1 is all P0 — must-have at GA. The scope discipline here was as important as the design itself. Getting Stage 1 right means Stages 2–6 can build on a solid foundation. Everything in "Won't have" is already planned — it's not forgotten, it's sequenced.</p>
+
+  <div class="moscow-grid">
+    <div class="moscow-card">
+      <div class="moscow-header">
+        <span class="moscow-badge mb-must">Must Have</span>
+        <span>Stage 1 · All P0 · Ships at GA</span>
+      </div>
+      <div class="moscow-items">
+        <div class="moscow-item"><div class="mi-dot dot-must"></div><div class="mi-text"><strong>Live compliance landing page</strong> — real-time KPI cards updating continuously</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-must"></div><div class="mi-text"><strong>Single Checklist View</strong> — 5 charts + Security Checks grid</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-must"></div><div class="mi-text"><strong>Global filter</strong> — 4 dimensions, multi-block OR logic</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-must"></div><div class="mi-text"><strong>Saved views</strong> with default auto-load on page arrival</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-must"></div><div class="mi-text"><strong>Deploy from Security Checks grid</strong> — direct path to enforcement</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-must"></div><div class="mi-text"><strong>Export</strong> as CSV and PDF, scoped to active filter</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-must"></div><div class="mi-text"><strong>WCAG 2.1 AA</strong> — chart table view drawers, keyboard nav, colour + text severity badges</div></div>
+      </div>
+    </div>
+
+    <div class="moscow-card">
+      <div class="moscow-header">
+        <span class="moscow-badge mb-should">Should Have</span>
+        <span>Future Stage 1 enhancement</span>
+      </div>
+      <div class="moscow-items">
+        <div class="moscow-item"><div class="mi-dot dot-should"></div><div class="mi-text"><strong>Profile/category filtering</strong> — CIS L1/L2, DISA Cat I/II/III. Planned but deferred.</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-should"></div><div class="mi-text"><strong>Scheduled reports</strong> — emailed compliance summaries. Post-GA enhancement.</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-should"></div><div class="mi-text"><strong>Shared saved views</strong> between users. Post-GA once single-user model is validated.</div></div>
+      </div>
+    </div>
+
+    <div class="moscow-card">
+      <div class="moscow-header">
+        <span class="moscow-badge mb-could">Could Have</span>
+        <span>Later stages — already roadmapped</span>
+      </div>
+      <div class="moscow-items">
+        <div class="moscow-item"><div class="mi-dot dot-could"></div><div class="mi-text"><strong>Checklist Management</strong> — create, edit, clone, deploy checklists. Stage 2.</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-could"></div><div class="mi-text"><strong>Historical Analysis</strong> — compliance trends over time. Stage 4.</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-could"></div><div class="mi-text"><strong>Exception Management</strong> — create, track, approve, expire exceptions. Stage 5.</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-could"></div><div class="mi-text"><strong>Universal Checklist</strong> — multi-framework simultaneous compliance scoring. Stage 3.</div></div>
+      </div>
+    </div>
+
+    <div class="moscow-card">
+      <div class="moscow-header">
+        <span class="moscow-badge mb-wont">Won't Have</span>
+        <span>Explicitly out of Stage 1</span>
+      </div>
+      <div class="moscow-items">
+        <div class="moscow-item"><div class="mi-dot dot-wont"></div><div class="mi-text"><strong>Multi-checklist selection</strong> in a single view — removed after design review, reassess for future stage</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-wont"></div><div class="mi-text"><strong>CMEP</strong> — Content Management Enforcement Policy. Stage 6.</div></div>
+        <div class="moscow-item"><div class="mi-dot dot-wont"></div><div class="mi-text"><strong>Global environment-wide pages</strong> beyond Core BFUI integration. Future stage.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- ═══ DESIGN EVOLUTION ═══ -->
+<div class="sec">
+  <div class="sec-eye">Design Evolution</div>
+  <h2>Three iterations. Each shaped by a real constraint.</h2>
+  <p class="sec-sub">I was part of the cross-functional discussions that drove each iteration. The PRD went through four versions across three weeks. The design decisions I made in each cycle fed back into product requirements, and product discussions fed back into my wireframes. This is where the real design thinking happened.</p>
+
+  <div class="prd-track" style="margin-bottom:32px;">
+    <div class="prd-row">
+      <div class="prd-v">v1.0</div>
+      <div class="prd-d">21 May 2026</div>
+      <div class="prd-c">Initial draft — three-section layout with global filter</div>
+    </div>
+    <div class="prd-row">
+      <div class="prd-v">v2.0</div>
+      <div class="prd-d">28 May 2026</div>
+      <div class="prd-c">Restructured — live dashboard as default page, dedicated drill-down, updated SLAs</div>
+    </div>
+    <div class="prd-row">
+      <div class="prd-v">v3.0</div>
+      <div class="prd-d">29 May 2026</div>
+      <div class="prd-c">Scope tiered into P0/P1/P2 — single checklist as P0, multi-checklist as P1, global pages as P2</div>
+    </div>
+    <div class="prd-row prd-highlight">
+      <div class="prd-v">v4.0</div>
+      <div class="prd-d">8 Jun 2026</div>
+      <div class="prd-c"><strong>Major restructure after design and workflow review I participated in.</strong> P1/P2 removed. Environment-wide landing page confirmed. 5 charts (from 7). "Deploy" replaces "Remediate". Application name confirmed. Two-page split finalised.</div>
+    </div>
+  </div>
+
+  <div class="iter-rail">
+
+    <!-- ITERATION 1 -->
+    <div class="iter-block">
+      <div class="iter-top">
+        <div class="iter-badge"><div class="ib-circle ibc-gray">01</div></div>
+        <div class="iter-info">
+          <h4>Single page — all checklists, 7 charts, full compliance data loading simultaneously</h4>
+          <span>PRD v2/v3 · "Security Configuration Analytics — Default view"</span>
+        </div>
+        <div class="iter-verdict-wrap"><span class="iter-verdict iv-dropped">Dropped</span></div>
+      </div>
+      <div class="iter-body">
+        <div class="iter-screen">
+          <div class="screen-ph">
+            <div class="sph-name">[Insert: All__Specific_Checklists_view.png]</div>
+            <div class="sph-desc">3 KPI cards · 7 charts including Bottom 10 and Top 10 by compliance % · Full 132-row checklists table with Compliant, Non-Compliant, Compliance % columns · "Remediate" button · Everything loading at once</div>
+          </div>
+        </div>
+        <div class="iter-analysis">
+          <div class="ia-row"><span class="ia-icon">🔴</span><span class="ia-text"><strong>Unacceptable load performance.</strong> 7 charts + 132-row compliance table + KPI cards loading simultaneously on a live platform with 300,000 endpoints. This wasn't theoretical — the page was genuinely slow.</span></div>
+          <div class="ia-row"><span class="ia-icon">🔴</span><span class="ia-text"><strong>Two filter layers on one page.</strong> Global filter at top, implied table-level filter below. Violates the principle: one filter per page. Admins couldn't know which filter controlled what.</span></div>
+          <div class="ia-row"><span class="ia-icon">🔴</span><span class="ia-text"><strong>7 charts, 2 of which were wrong.</strong> "Bottom 10" and "Top 10 by compliance %" compare checklists against each other — meaningless once you move to a single-checklist view.</span></div>
+          <div class="ia-row"><span class="ia-icon">🔴</span><span class="ia-text"><strong>"Remediate" was the wrong word.</strong> This action is enforcing a compliance check by deploying a Fixlet — proactive, not reactive. "Remediate" misrepresented the workflow.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITERATION 2 -->
+    <div class="iter-block">
+      <div class="iter-top">
+        <div class="iter-badge"><div class="ib-circle ibc-amber">02</div></div>
+        <div class="iter-info">
+          <h4>Single-checklist model with a dropdown selector and empty state — nothing loads until selected</h4>
+          <span>Intermediate exploration · "BigFix Security Configuration Management"</span>
+        </div>
+        <div class="iter-verdict-wrap"><span class="iter-verdict iv-partial">Partially adopted</span></div>
+      </div>
+      <div class="iter-body">
+        <div class="iter-screen">
+          <div class="screen-ph">
+            <div class="sph-name">[Insert: Empty_stage.png]</div>
+            <div class="sph-desc">"Select a checklist" dropdown · Empty state illustration: "Select a Checklist to Begin" · Nothing renders until selection · Saved views + Filter + Export in header</div>
+          </div>
+        </div>
+        <div class="iter-analysis">
+          <div class="ia-row"><span class="ia-icon">✅</span><span class="ia-text"><strong>Solved the load problem.</strong> Nothing renders until a checklist is selected — eliminating simultaneous heavy data load. The right instinct.</span></div>
+          <div class="ia-row"><span class="ia-icon">✅</span><span class="ia-text"><strong>Established the single-checklist principle</strong> — scope each detailed view to one checklist at a time. This was correct and carried forward.</span></div>
+          <div class="ia-row"><span class="ia-icon">🔴</span><span class="ia-text"><strong>Dead-start experience.</strong> Admin lands on a blank page with zero context — no counts, no environment state, nothing. The Master Operator needs to see the full picture before drilling down.</span></div>
+          <div class="ia-row"><span class="ia-icon">🔴</span><span class="ia-text"><strong>Dropdown doesn't scale.</strong> 132 checklists in a dropdown is unwieldy. A searchable, sortable grid is a far better navigation surface at that volume.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITERATION 3 - FINAL -->
+    <div class="iter-block iter-final">
+      <div class="iter-top">
+        <div class="iter-badge"><div class="ib-circle ibc-blue">03</div></div>
+        <div class="iter-info">
+          <h4>Two-page split — lightweight environment overview + scoped single checklist detail</h4>
+          <span>Final design · PRD v4.0 · "Security Configuration"</span>
+        </div>
+        <div class="iter-verdict-wrap"><span class="iter-verdict iv-approved">Approved</span></div>
+      </div>
+      <div class="iter-body">
+        <div class="iter-screen">
+          <div class="screen-ph">
+            <div class="sph-name">[Insert: List_of_checklists.png]</div>
+            <div class="sph-desc">Landing Page: 4 KPI cards loading in &lt;3s · Checklist grid as navigation surface — no compliance columns, no charts · Global filter (only filter on this page) · Export</div>
+          </div>
+          <div class="screen-ph" style="margin-top:8px;">
+            <div class="sph-name">[Insert: Enterprise_Web_App_Dashboard_-_Active_loaded_stage.png]</div>
+            <div class="sph-desc">Single Checklist View: 5 charts + Security Checks grid loading independently within 20s · Grid filter only (global filter absent by design)</div>
+          </div>
+        </div>
+        <div class="iter-analysis">
+          <div class="ia-row"><span class="ia-icon">✅</span><span class="ia-text"><strong>Performance solved by separation.</strong> Landing Page: KPI cards + checklist names only — loads in &lt;3s. Single Checklist View: 5 charts + grid — loads in &lt;20s independently. Two SLAs, each achievable.</span></div>
+          <div class="ia-row"><span class="ia-icon">✅</span><span class="ia-text"><strong>Context before choice.</strong> Landing page gives the Master Operator environment-wide counts immediately — not a blank page. 4 KPI cards load in seconds.</span></div>
+          <div class="ia-row"><span class="ia-icon">✅</span><span class="ia-text"><strong>One filter per page.</strong> Global filter on Landing Page only. Grid filter on Single Checklist View only. No ambiguity about what is being filtered, ever.</span></div>
+          <div class="ia-row"><span class="ia-icon">✅</span><span class="ia-text"><strong>Checklist grid as navigation — not data.</strong> Compliance columns removed. The landing grid is for finding and selecting a checklist, not analysing it.</span></div>
+          <div class="ia-row"><span class="ia-icon">✅</span><span class="ia-text"><strong>"Deploy" replaces "Remediate."</strong> Accurate to the Fixlet enforcement model. Proactive, not reactive.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ KEY DECISIONS ═══ -->
+<div class="sec">
+  <div class="sec-eye">Key Design Decisions</div>
+  <h2>Six calls that defined the product.</h2>
+
+  <div class="d-stack">
+
+    <div class="d-card">
+      <div class="d-accent"></div>
+      <div class="d-body">
+        <span class="d-eye">UX Principle · Filter Architecture</span>
+        <h4>One filter per page — the principle that restructured everything</h4>
+        <p>Early designs had a global filter at the top and a data table filter below on the same page. In cross-functional review, I flagged this as a fundamental UX problem: two filter layers on one page creates ambiguity — which one controls what? I introduced the principle: one filter per page. On the Landing Page, the global filter controls everything — no table filter. On the Single Checklist View, the global filter is absent entirely — the grid-level filter on the Security Checks table is the only one. This single principle restructured both pages and resolved confusion that would have surfaced in user testing.</p>
+        <span class="d-result">→ Global filter removed from Single Checklist View. Grid filter handles scoping at that level. Zero ambiguity.</span>
+      </div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-accent"></div>
+      <div class="d-body">
+        <span class="d-eye">Performance-Driven Architecture</span>
+        <h4>The two-page split was a performance decision, not an aesthetic one</h4>
+        <p>The original design loaded 7 charts, a 132-row compliance table, and KPI cards simultaneously on a live platform with up to 300,000 managed endpoints. This made the page genuinely slow. The two-page split solved it by separating data loads: Landing Page loads lightweight data (KPI counts + checklist names) within 3 seconds. Single Checklist View loads heavy data (5 charts + Security Checks grid) within 20 seconds independently. Each SLA is achievable because neither page tries to do both. Performance SLAs in an enterprise product are design constraints, not engineering targets.</p>
+        <span class="d-result">→ 3s SLA for Landing Page. 20s SLA for Single Checklist View. Neither blocked by the other.</span>
+      </div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-accent"></div>
+      <div class="d-body">
+        <span class="d-eye">Stakeholder Negotiation · KPI Cards</span>
+        <h4>The Checklists KPI card: I pushed to remove it. When the PM kept it, I made the compromise work for users.</h4>
+        <p>The landing page checklist grid already shows the count in its header — "Checklists (132)". A Checklists KPI card showing the same number is redundant. I raised this in review — it takes up prime visual real estate without adding information. The PM wanted it retained for consistency and overview feel. Rather than a disabled state (which implies something is broken) or an explanation tooltip, I differentiated it through two visual signals only: no chevron arrow, and the count in black instead of blue. The other three KPI cards use blue numbers and chevrons — interactive, navigating somewhere. The Checklists card sits among them but reads immediately as informational. PM's need met. User not misled.</p>
+        <span class="d-result">→ 4 KPI cards. 3 interactive (blue + chevron). 1 informational (black, no chevron). No disabled state, no explanation needed.</span>
+      </div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-accent"></div>
+      <div class="d-body">
+        <span class="d-eye">Saved Views Placement</span>
+        <h4>Saved Views lives inside the filter panel — not as a separate header element</h4>
+        <p>A saved view is a saved filter configuration. Keeping Saved Views inside the filter panel makes that relationship explicit and immediate. An admin saving a view is saving a filter state — they should be in the same place. It also keeps the page header clean: only the filter icon and Export button at the top level. The Master Operator — who creates views for different teams — sees their view name the moment the filter panel opens, contextually tied to the filter they're about to edit.</p>
+        <span class="d-result">→ Saved Views dropdown inside filter panel. Header stays lean. Relationship between view and filter is self-evident.</span>
+      </div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-accent"></div>
+      <div class="d-body">
+        <span class="d-eye">Terminology</span>
+        <h4>"Remediate" became "Deploy" — because the action is enforcement, not reaction</h4>
+        <p>In BigFix, Checks and Fixlets are the same thing. When an admin selects failing checks and clicks the action button, they are deploying a Fixlet to enforce a compliance check — a proactive enforcement action. "Remediate" implies reacting to a problem after it has already caused damage. "Deploy" reflects what is actually happening and how BigFix's model works. This was agreed in cross-functional review. It is a small word with large implication for how the product positions itself: as an enforcement tool, not a cleanup tool.</p>
+        <span class="d-result">→ "Deploy" throughout the Security Checks grid. Consistent with BigFix's Fixlet deployment model and user mental model.</span>
+      </div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-accent"></div>
+      <div class="d-body">
+        <span class="d-eye">Naming & Navigation Placement</span>
+        <h4>"Security Configuration" under Resolve — both decisions made through cross-functional alignment</h4>
+        <p>Where a product lives in navigation tells users what it is for. Placing it under Resolve positions it as an action-oriented enforcement tool — you come here to identify failures and act on them, not just to generate reports. The name "Security Configuration" replaced the working name "Security Configuration Analytics." The word "Analytics" implied passive reporting. Removing it reinforces the product's identity as active compliance management. Confirming the name was a stakeholder alignment decision between the two PMs and myself — it unblocked repository creation, all UI strings, breadcrumbs, and the dev environment setup.</p>
+        <span class="d-result">→ Under Resolve. Named "Security Configuration". Breadcrumb: Security Configuration → [Checklist Name].</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- ═══ CHART RATIONALE ═══ -->
+<div class="sec">
+  <div class="sec-eye">Chart Strategy</div>
+  <h2>5 charts. 2 removed. Every remaining one earns its place.</h2>
+  <p class="sec-sub">The earlier design had 7 charts — including "Bottom 10 by compliance %" and "Top 10 by compliance %" that compared checklists against each other. Once the design moved to a single-checklist view, these became meaningless — you can't rank checklists when you're already inside one. They were cut. Each of the 5 remaining charts exists because a specific persona needs a specific answer.</p>
+
+  <table class="chart-table">
+    <thead>
+      <tr><th>Chart</th><th>The question it answers</th><th>Persona</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Compliance donut</td>
+        <td>What is the overall compliance % for this checklist right now? The most critical single number — answers "are we compliant?" before anything else is read.</td>
+        <td><span class="who-tag wt-b">SC Admin</span><span class="who-tag wt-p">MO</span></td>
+      </tr>
+      <tr>
+        <td>Compliance by Quartile</td>
+        <td>How are devices distributed across compliance bands (0–24%, 25–49%, 50–74%, 75–99%, 100%)? Shows whether non-compliance is concentrated or spread — informs where to focus enforcement first.</td>
+        <td><span class="who-tag wt-b">SC Admin</span><span class="who-tag wt-t">IT Ops</span></td>
+      </tr>
+      <tr>
+        <td>Devices below Threshold</td>
+        <td>For a threshold I define, how many devices fall below it — broken by OS? Lets admins ask "how many devices are below our 80% policy threshold" and prioritise by OS platform.</td>
+        <td><span class="who-tag wt-b">SC Admin</span><span class="who-tag wt-t">IT Ops</span></td>
+      </tr>
+      <tr>
+        <td>Check Results</td>
+        <td>Of all checks in this checklist — how many are applicable, non-applicable, excepted, non-excepted, compliant, non-compliant? Surfaces whether exceptions are masking real failures.</td>
+        <td><span class="who-tag wt-b">SC Admin</span><span class="who-tag wt-p">MO</span></td>
+      </tr>
+      <tr>
+        <td>Compliance Distribution</td>
+        <td>How many devices sit at each compliance percentage? Shows the shape — whether devices cluster near 100% (healthy) or spread across the range (systemic gaps throughout the environment).</td>
+        <td><span class="who-tag wt-b">SC Admin</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p>Charts 2–5 each have a table view icon that opens a data drawer — meeting WCAG 2.1 AA screen reader requirements. Chart 1 does not. <strong>A compliance donut showing 45% is already a single accessible number</strong> — a table view with one data point adds no accessibility value and would create false consistency.</p>
+  </div>
+</div>
+
+<!-- ═══ FINAL DESIGNS ═══ -->
+<div class="sec">
+  <div class="sec-eye">Final Designs</div>
+  <h2>The approved wireframes.</h2>
+
+  <div class="sc-stack">
+
+    <div class="sc-unit">
+      <span class="sc-eye">Landing Page — Security Configuration (Default state)</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: List_of_checklists.png]</div>
+        <div class="sp-desc">HCL BigFix sidebar · Resolve expanded · "Security Configuration" page title · Filter icon with active indicator + Export · 4 KPI cards: Checklists (50, black, no chevron) · Checks (87, blue, chevron) · Devices (41) · Device Groups (23) · Checklists (132) section · Grid: Name, ID, Policy, Check Count, Computer Count · More link</div>
+      </div>
+      <p class="sc-annotation">The landing page is a <strong>navigation and orientation surface — not an analysis surface.</strong> KPI cards give context in under 3 seconds. The checklist grid is deliberately stripped of compliance columns — that detail belongs in the Single Checklist View. The global filter at the top is the only filter on this page.</p>
+    </div>
+
+    <div class="sc-unit">
+      <span class="sc-eye">Single Checklist View — Loading State</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: Loading_stage.png]</div>
+        <div class="sp-desc">Breadcrumb: Security Configuration / CIS Microsoft Windows 10 Enterprise Benchmark v2.0.0 · Export · KPI cards rendered immediately (Checks: 4, Devices: 2, Device Groups: 1) with live indicators · 5 chart containers showing "Loading chart data..." spinners · Security Checks section: "Loading security checks..."</div>
+      </div>
+      <p class="sc-annotation">KPI cards render within the 3-second SLA — admins have count context while the heavier data loads. <strong>Each section fails and recovers independently</strong> — a chart error never blocks the Security Checks grid. This was a deliberate decision informed by the platform's live data architecture.</p>
+    </div>
+
+    <div class="sc-unit">
+      <span class="sc-eye">Single Checklist View — Fully Loaded</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: Enterprise_Web_App_Dashboard_-_Active_loaded_stage.png]</div>
+        <div class="sp-desc">All 5 charts populated · Security Checks grid: 50 rows default · Filter / Column / Deploy (disabled) / Search toolbar · "50 checks" count · Table view icons on Charts 2–5 · More link</div>
+      </div>
+      <p class="sc-annotation">The Security Admin reads posture across 5 chart dimensions before deciding whether to act. The IT Ops Admin scrolls directly to the Security Checks grid and uses Filter or Search to reach non-compliant checks. <strong>Both workflows coexist on the same page without either compromising the other.</strong></p>
+    </div>
+
+    <div class="sc-unit">
+      <span class="sc-eye">Security Checks Grid — Row Selection + Deploy Active</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: Selection_stage.png]</div>
+        <div class="sp-desc">3 rows selected · Deploy active (blue) · Count: "3 of 50 checks" · Check Name hyperlinks remain visible and independently clickable</div>
+      </div>
+      <p class="sc-annotation">Selecting rows activates Deploy — opening the Core BFUI Deploy flow pre-populated with selected checks. <strong>Check Name click (hyperlink) and checkbox are completely independent</strong> — clicking a name navigates to Check Detail without adding it to a deployment queue.</p>
+    </div>
+
+    <div class="sc-unit">
+      <span class="sc-eye">Security Checks Grid — Inline Filter (the only filter on this page)</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: Enterprise_Web_App_Dashboard_-_data_table_filter.png]</div>
+        <div class="sp-desc">Inline grid filter panel open · Property: Status · Value: Compliant · Add filter / Remove all / Apply · Grid rows visible behind panel</div>
+      </div>
+      <p class="sc-annotation">This is the only filter on this page — by design. The IT Ops Admin's primary workflow: <strong>filter to Non-Compliant → select all → Deploy.</strong> One uninterrupted path from identification to enforcement.</p>
+    </div>
+
+    <div class="sc-unit">
+      <span class="sc-eye">Security Checks Grid — Non-Compliant Filter Applied</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: Non_complaint_checks.png]</div>
+        <div class="sp-desc">Grid showing non-compliant rows only · Pre-selected rows highlighted · Deploy active · Count updated</div>
+      </div>
+    </div>
+
+    <div class="sc-unit">
+      <span class="sc-eye">Security Checks Grid — Compliant Filter Applied</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: Complaint_checks.png]</div>
+        <div class="sp-desc">Grid showing compliant rows only · No selection · Deploy disabled · Count updated</div>
+      </div>
+    </div>
+
+    <div class="sc-unit">
+      <span class="sc-eye">Global Filter — Property Dropdown Open</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: GlobalFilter_-_Property.png]</div>
+        <div class="sp-desc">Filter panel open · Property dropdown showing 4 dimensions: Checklists, Device Groups, Devices, Checks · Saved Views dropdown at top of panel ("Default filter") · Remove all / Save / Apply</div>
+      </div>
+      <p class="sc-annotation">Four dimensions map to the three personas' mental models of scope. Saved Views lives inside the filter panel — not as a separate header element — because <strong>a saved view is a saved filter configuration.</strong> The connection is self-evident.</p>
+    </div>
+
+    <div class="sc-unit">
+      <span class="sc-eye">Global Filter — Multi-Condition, Multi-Block State</span>
+      <div class="sc-placeholder">
+        <div class="sp-name">[Insert: GlobalFilter_-_Condition__filter_block.png]</div>
+        <div class="sp-desc">Filter Block 1: Condition 1 (Device Groups / Is not / Domain Controllers · Test Environment · HR Department pills) + Condition 2 (Checklists / Is) · OR · Filter Block 2 · Add filter block · View conditions</div>
+      </div>
+      <p class="sc-annotation">Selected values as removable pills make the active filter state <strong>readable at a glance before the admin even clicks Apply.</strong> Multiple conditions and blocks joined by OR logic — complex scope without requiring explicit Boolean knowledge.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ MY ROLE ═══ -->
+<div class="sec">
+  <div class="sec-eye">My Contribution</div>
+  <h2>What I owned and what I shaped.</h2>
+  <div class="role-grid">
+    <div class="role-card owned">
+      <span class="role-label rl-blue">I Owned & Shaped</span>
+      <ul>
+        <li>All wireframes across both pages — every state: default, loading, empty, error, filtered, selection, deploy trigger</li>
+        <li>One-filter-per-page principle — raised in cross-functional review, adopted into product architecture</li>
+        <li>Two-page split recommendation — driven by live platform load performance analysis</li>
+        <li>Cut 2 charts (Bottom 10, Top 10) — became irrelevant in single-checklist model</li>
+        <li>Checklists KPI card compromise — pushed to remove, differentiated visually when PM kept it</li>
+        <li>"Deploy" over "Remediate" — terminology aligned to Fixlet enforcement model</li>
+        <li>Confirmed product name "Security Configuration" — unblocked dev team, UI strings, breadcrumbs</li>
+        <li>Confirmed chart table view drawer as WCAG 2.1 AA mechanism (closed PRD Q7)</li>
+        <li>Saved Views placement inside filter panel — structural decision</li>
+        <li>Navigation under Resolve — positioned as enforcement tool, not passive reporting</li>
+      </ul>
+    </div>
+    <div class="role-card given">
+      <span class="role-label rl-gray">Constraints I Worked Within</span>
+      <ul>
+        <li>HCL Design System — component library non-negotiable, no custom components</li>
+        <li>Core BFUI platform pages (Check Detail, Device, Device Group, Deploy Flow, Grid Filter) — built by another team, I designed entry points only, not destination pages</li>
+        <li>Performance SLAs — 3s KPI load, 20s chart + grid load, 300ms live search — hard constraints</li>
+        <li>WCAG 2.1 AA and FIPS 140-2 — non-negotiable requirements</li>
+        <li>Stage 1 scope — historical, checklist management, exceptions out of scope (Stages 2–6)</li>
+        <li>Scale — 300,000 endpoints, 1,000 checks per checklist</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ OUTCOMES ═══ -->
+<div class="sec">
+  <div class="sec-eye">Outcomes</div>
+  <h2>Where this stands.</h2>
+  <div class="outcome-row">
+    <div class="outcome-card"><div class="oc-num">1st</div><div class="oc-desc">Live real-time compliance dashboard in BigFix's history</div></div>
+    <div class="outcome-card"><div class="oc-num">3</div><div class="oc-desc">Design iterations shaped through cross-functional participation</div></div>
+    <div class="outcome-card"><div class="oc-num">12+</div><div class="oc-desc">Screen states delivered — every PRD scenario accounted for</div></div>
+    <div class="outcome-card"><div class="oc-num">6</div><div class="oc-desc">Product structure decisions — not just visual decisions</div></div>
+  </div>
+  <p class="body-t">Wireframes approved by both PMs, the project director, senior architects, and engineering. UI build in progress. Stage 1 is the foundation for 5 downstream stages — filter architecture, grid patterns, navigation structure, and Core BFUI integration points were all designed with the full roadmap in mind.</p>
+</div>
+
+<!-- ═══ REFLECTIONS ═══ -->
+<div class="sec">
+  <div class="sec-eye">Reflections</div>
+  <h2>Honest notes.</h2>
+  <div class="refl-stack">
+    <div class="refl-item">
+      <span class="rt rt-g">Went well</span>
+      <p>Establishing the one-filter-per-page principle early gave me a consistent framework to defend structural decisions in review cycles. Principles are easier to align teams around than preferences — it made every filter-related conversation faster to resolve.</p>
+    </div>
+    <div class="refl-item">
+      <span class="rt rt-g">Went well</span>
+      <p>Treating performance SLAs as design constraints — not engineering problems — kept load time central to every layout decision. The two-page split, the KPI-cards-first hierarchy, and independent section loading all came from asking "what can we reliably show in 3 seconds" before asking "what should we show."</p>
+    </div>
+    <div class="refl-item">
+      <span class="rt rt-g">Went well</span>
+      <p>Using the three personas as a validation lens — not just a reference — gave every layout decision a user-grounded reason. When the PM wanted the Checklists KPI card retained, the persona framework gave me a way to negotiate within: keep it, but protect users from a false affordance.</p>
+    </div>
+    <div class="refl-item">
+      <span class="rt rt-a">Would do differently</span>
+      <p>I would push for at least one session with a real Security/Compliance Admin before wireframing. The personas were well-defined in the PRD but not user-validated. Direct access to someone using Web Reports today would have given me stronger evidence for the 5-chart hierarchy and made stakeholder conversations faster to close.</p>
+    </div>
+    <div class="refl-item">
+      <span class="rt rt-b">What's next</span>
+      <p>Stage 2 — Checklist Management — introduces create, edit, clone, and deploy flows for checklists. The Stage 1 grid patterns, filter architecture, and navigation structure were deliberately designed to scale into these flows. Stage 1 is not just a product — it is a design system foundation for everything that follows.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>Shruti Upadhyay · Senior UX Designer · HCL Software</span>
+  <span>BigFix · Boomerang Tribe · Confidential</span>
+</div>
+
+</div>
+</body>
+</html>
